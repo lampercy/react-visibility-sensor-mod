@@ -42,6 +42,7 @@ module.exports = React.createClass({
     minTopValue: React.PropTypes.number,
     displayCheck: React.PropTypes.bool,
     visibilityCheck: React.PropTypes.bool,
+    dimensionCheck: React.PropTypes.bool,
   },
 
   getDefaultProps: function () {
@@ -57,6 +58,7 @@ module.exports = React.createClass({
       containment: null,
       displayCheck: true,
       visibilityCheck: true,
+      dimensionCheck: true,
       children: React.createElement('span')
     };
   },
@@ -123,6 +125,10 @@ module.exports = React.createClass({
     // if the component has rendered to null, dont update visibility
     if (!el) {
       return this.state;
+    }
+
+    if(this.props.dimensionCheck && (el.offsetHeight === 0 && el.offsetWidth=== 0) ) {
+        return false;
     }
 
     var elStyle = window.getComputedStyle(el);
